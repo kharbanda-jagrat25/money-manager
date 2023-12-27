@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import Home from './screens/Home';
@@ -33,6 +33,9 @@ const styles = StyleSheet.create({
         width: "35%",
         height: "35%",
     },
+    unclickableContainer: {
+        marginTop: 11
+    }
 });
 
 const TabIcon = ({ focused, icon, alt }) => (
@@ -48,13 +51,39 @@ const TabIcon = ({ focused, icon, alt }) => (
         >
             <img style={styles.activeTabIcon} src={icon} alt={alt} />
         </LinearGradient>) : <img src={icon} alt={alt} />
+);
 
-
-
-
-)
+const UnclickableTabButton = ({ tab }) => (
+    <TouchableOpacity onPress={() => {}} style={{ opacity: 0.4 }}>
+        <View pointerEvents="none" style={styles.unclickableContainer}>
+            <img src={tab.icon} alt={tab.name} />
+        </View>
+    </TouchableOpacity>
+);
 
 const AppNavigator = () => {
+    const tabs = [
+        {
+            name: "Home",
+            icon: HomeIcon,
+            component: Home
+        },
+        {
+            name: "Catalogue",
+            icon: CatalogIcon,
+            component: Catalogue
+        },
+        {
+            name: "History",
+            icon: HistoryIcon,
+            component: History
+        },
+        {
+            name: "Menu",
+            icon: MenuIcon
+        }
+    ];
+
     return (
         <NavigationContainer>
             <Tab.Navigator
@@ -83,23 +112,22 @@ const AppNavigator = () => {
                     }
 
 
-                }}>
-                <Tab.Screen name="Home" component={Home} options={{
-                    headerShown: false,
-                    tabBarIcon: ({ focused }) => <TabIcon focused={focused} icon={HomeIcon} alt="Home" />,
-                }} />
-                <Tab.Screen name="Catalogue" component={Catalogue} options={{
-                    headerShown: false,
-                    tabBarIcon: ({ focused }) => <TabIcon focused={focused} icon={CatalogIcon} alt="Catalog" />,
-                }} />
-                <Tab.Screen name="History" component={History} options={{
-                    headerShown: false,
-                    tabBarIcon: ({ focused }) => <TabIcon focused={focused} icon={HistoryIcon} alt="History" />,
-                }} />
-                <Tab.Screen name="Menu" component={History} options={{
-                    headerShown: false,
-                    tabBarIcon: ({ focused }) => <TabIcon focused={focused} icon={MenuIcon} alt="Menu" />,
-                }} />
+                }}
+            >
+                {tabs.map(tab => {
+                    if (tab.component) return (
+                        <Tab.Screen name={tab.name} component={tab.component} options={{
+                            headerShown: false,
+                            tabBarIcon: ({ focused }) => <TabIcon focused={focused} icon={tab.icon} alt={tab.name} />,
+                        }} />
+                    );
+                    return (
+                        <Tab.Screen name={tab.name} component={() => {}} options={{
+                            headerShown: false,
+                            tabBarButton: props => <UnclickableTabButton tab={tab} { ...props } />,
+                        }} />
+                    );
+                })}
             </Tab.Navigator>
         </NavigationContainer>
     );
