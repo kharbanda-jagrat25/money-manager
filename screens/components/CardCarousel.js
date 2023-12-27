@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Dimensions, Animated, Pressable, FlatList } from 'react-native';
 import Card1Img from '../../assets/images/Card1.svg';
 import Card2Img from '../../assets/images/Card2.svg';
+import ServiceCard from './ServiceCard';
+import { useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
 
@@ -15,7 +17,8 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
         width: '100%',
         height: '100%',
-        paddingRight: "10%",
+        paddingRight: "10% !important",
+        marginRight: '10% !important'
     },
     card: {
         // width: '100%',
@@ -62,17 +65,20 @@ const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 const CardCarousel = () => {
     const [rotation, setRotation] = useState(false);
     const [scrollAnimation] = useState(new Animated.Value(0));
+    const navigation = useNavigation();
 
     const handleCardRotation = () => {
         setRotation(true);
         // Perform slide animation logic here
         Animated.timing(scrollAnimation, {
             toValue: 1,
-            duration: 1000, // Adjust duration as needed
+            duration: 0, // Adjust duration as needed
             useNativeDriver: true,
         }).start(() => {
             // Reset animation value after completion
             scrollAnimation.setValue(0);
+            navigation.navigate('ServiceCard');
+            setRotation(false);
         });
     }
 
@@ -89,17 +95,17 @@ const CardCarousel = () => {
                 },
             ]
         });
-        return ({
-            ...styles.item,
-            transform: [
-                {
-                    translateX: scrollAnimation.interpolate({
-                        inputRange: [width * (index - 1), width * index, width * (index + 1)],
-                        outputRange: [-width * 0.8, 0, width * 0.8],
-                    }),
-                },
-            ]
-        });
+        // return ({
+        //     ...styles.item,
+        //     transform: [
+        //         {
+        //             translateX: scrollAnimation.interpolate({
+        //                 inputRange: [width * (index - 1), width * index, width * (index + 1)],
+        //                 outputRange: [-width * 0.8, 0, width * 0.8],
+        //             }),
+        //         },
+        //     ]
+        // });
     }
 
     return (
@@ -127,6 +133,14 @@ const CardCarousel = () => {
                                         style={{
                                             width: "100%",
                                             height: "100%",
+                                            // transform: [
+                                            //     {
+                                            //         translateX: scrollAnimation.interpolate({
+                                            //             inputRange: [width * (index - 1), width * index, width * (index + 1)],
+                                            //             outputRange: [-width * 0.8, 0, width * 0.8],
+                                            //         }),
+                                            //     },
+                                            // ]
                                         }}
                                     />
                                 </Animated.View>
@@ -136,6 +150,9 @@ const CardCarousel = () => {
                 />
                 {/* <View>hello</View> */}
             </>
+            {rotation && (
+                <ServiceCard />
+            )}
         </View>
     );
 };

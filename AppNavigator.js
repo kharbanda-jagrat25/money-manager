@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -12,7 +13,9 @@ import HomeIcon from "./assets/icons/home.svg";
 import MenuIcon from "./assets/icons/menu.svg";
 import CatalogIcon from "./assets/icons/catalog.svg";
 import HistoryIcon from "./assets/icons/history.svg";
+import ServiceCard from './screens/components/ServiceCard';
 
+const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const styles = StyleSheet.create({
@@ -61,12 +64,12 @@ const UnclickableTabButton = ({ tab }) => (
     </Pressable>
 );
 
-const AppNavigator = () => {
+function HomeTabs() {
     const tabs = [
         {
             name: "Home",
             icon: HomeIcon,
-            component: Home
+            component: Home,
         },
         {
             name: "Catalogue",
@@ -85,50 +88,75 @@ const AppNavigator = () => {
     ];
 
     return (
-        <NavigationContainer>
-            <Tab.Navigator
-                unmountInactiveScreens={true}
-                screenOptions={{
-                    tabBarBackground: () => (
-                        <LinearGradient
-                            start={{ x: 0, y: 0 }}
-                            end={{ x: 1, y: 0 }}
-                            style={{ height: "100%", borderTopLeftRadius: "40px", borderTopEndRadius: "40px", boxShadow: "0px 4px 4px 0px #00000040", }}
-                            colors={["rgba(19, 27, 49, 0.92)", " rgba(47, 57, 91, 0.92)"]}
-                        />
-                    ),
-                    tabBarShowLabel: false,
-                    tabBarStyle: {
-                        // backgroundColor: "linear-gradient(8.66deg, rgba(19, 27, 49, 0.92) 21.76%, rgba(47, 57, 91, 0.92) 97.66%)",
-                        // borderTopLeftRadius: "30px",
-                        // borderTopRightRadius: "30px",
-                        height: "80px",
-                        border: "none",
-                        position: 'absolute',
-                        bottom: 0,
-                    },
-                    tabBarItemStyle: {
-                        // backgroundColor: "linear-gradient(8.66deg, rgba(19, 27, 49, 0.92) 21.76%, rgba(47, 57, 91, 0.92) 97.66%)",
-                    }
-
-
-                }}
-            >
-                {tabs.map(tab => {
-                    if (tab.component) return (
-                        <Tab.Screen key={tab.name} name={tab.name} component={tab.component} options={{
+        <Tab.Navigator
+            unmountInactiveScreens={true}
+            screenOptions={{
+                tabBarBackground: () => (
+                    <LinearGradient
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 0 }}
+                        style={{ height: "100%", borderTopLeftRadius: "40px", borderTopEndRadius: "40px", boxShadow: "0px 4px 4px 0px #00000040", }}
+                        colors={["rgba(19, 27, 49, 0.92)", " rgba(47, 57, 91, 0.92)"]}
+                    />
+                ),
+                tabBarShowLabel: false,
+                tabBarStyle: {
+                    // backgroundColor: "linear-gradient(8.66deg, rgba(19, 27, 49, 0.92) 21.76%, rgba(47, 57, 91, 0.92) 97.66%)",
+                    // borderTopLeftRadius: "30px",
+                    // borderTopRightRadius: "30px",
+                    height: "80px",
+                    border: "none",
+                    position: 'absolute',
+                    bottom: 0,
+                },
+                tabBarItemStyle: {
+                    // backgroundColor: "linear-gradient(8.66deg, rgba(19, 27, 49, 0.92) 21.76%, rgba(47, 57, 91, 0.92) 97.66%)",
+                },
+            }}
+        >
+            {tabs.map(tab => {
+                if (tab.component) return (
+                    <Tab.Screen
+                        key={tab.name}
+                        name={tab.name}
+                        component={tab.component}
+                        options={{
                             headerShown: false,
                             tabBarIcon: ({ focused }) => <TabIcon focused={focused} icon={tab.icon} alt={tab.name} />,
-                        }} />
-                    );
-                    return (
-                        <Tab.Screen key={tab.name} name={tab.name} component={() => {}} options={{
+                        }}
+                    />
+                );
+                return (
+                    <Tab.Screen
+                        key={tab.name}
+                        name={tab.name}
+                        component={() => { }}
+                        options={{
                             headerShown: false,
-                            tabBarButton: props => <UnclickableTabButton tab={tab} { ...props } />,
-                        }} />
-                    );
-                })}
-            </Tab.Navigator>
+                            tabBarButton: props => <UnclickableTabButton tab={tab} {...props} />,
+                        }}
+                    />
+                );
+            })}
+        </Tab.Navigator>
+    );
+}
+
+const AppNavigator = () => {
+    return (
+        <NavigationContainer>
+            <Stack.Navigator>
+                <Stack.Screen
+                    name="Home"
+                    component={HomeTabs}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name="ServiceCard"
+                    component={ServiceCard}
+                    options={{ headerShown: false }}
+                />
+            </Stack.Navigator>
         </NavigationContainer>
     );
 };
