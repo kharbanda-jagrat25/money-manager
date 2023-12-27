@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const Header = ({ navigation, heading, showLogo }) => {
+const Header = ({ heading, showLogo }) => {
     return (
         <GradientContainer>
             <View style={styles.mainContainer}>

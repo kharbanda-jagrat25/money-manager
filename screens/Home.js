@@ -13,7 +13,8 @@ const styles = StyleSheet.create({
   balanceHeading: {
     fontSize: 16,
     fontWeight: 700,
-    color: '#94A3D3'
+    color: '#94A3D3',
+    marginTop: 25
   },
   balanceAmount: {
     fontSize: 26,
@@ -38,7 +39,6 @@ const Home = ({ navigation }) => {
         <View style={{ marginLeft: "4.3%"}}>
         <CardCarousel />
         </View>
-
     </GradientContainer>
     // <LinearGradient
     //   colors={['#1A2440', '#313C5C']}

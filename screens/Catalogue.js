@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Button, StyleSheet, Pressable } from 'react-native';
 
 import GradientContainer from './components/GradientContainer';
 import Header from './components/Header';
@@ -111,14 +111,14 @@ const Catalogue = ({ navigation }) => {
                     The debt is ${debt?.toLocaleString("en", { minimumFractionDigits: 2 })}
                   </Text>
                 </View>
-                <TouchableOpacity onPress={() => { }}>
+                <Pressable onPress={() => { }}>
                   <Text style={{
                     ...styles.payButton,
                     ...!debt && styles.disabled
                   }}>
                     Pay
                   </Text>
-                </TouchableOpacity>
+                </Pressable>
               </View>
             </View>
           ))}

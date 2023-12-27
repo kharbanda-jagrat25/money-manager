@@ -1,6 +1,5 @@
-import { LinearGradient } from 'expo-linear-gradient';
-import React, { useRef } from 'react';
-import { View, Text, StyleSheet, Image, Dimensions, Animated, FlatList } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet, Dimensions, Animated, Pressable, FlatList } from 'react-native';
 import Card1Img from '../../assets/images/Card1.svg';
 import Card2Img from '../../assets/images/Card2.svg';
 
@@ -58,121 +57,87 @@ const data = [
     },
 ];
 
-const ParallaxCarousel = () => {
-    const scrollAnimation = useRef(new Animated.Value(0)).current;
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
+
+const CardCarousel = () => {
+    const [rotation, setRotation] = useState(false);
+    const [scrollAnimation] = useState(new Animated.Value(0));
+
+    const handleCardRotation = () => {
+        setRotation(true);
+        // Perform slide animation logic here
+        Animated.timing(scrollAnimation, {
+            toValue: 1,
+            duration: 1000, // Adjust duration as needed
+            useNativeDriver: true,
+        }).start(() => {
+            // Reset animation value after completion
+            scrollAnimation.setValue(0);
+        });
+    }
+
+    const getStyle = (index) => {
+        if (rotation) return ({
+            ...styles.item,
+            transform: [
+                { rotate: '90deg' },
+                {
+                    translateX: scrollAnimation.interpolate({
+                        inputRange: [width * (index - 1), width * index, width * (index + 1)],
+                        outputRange: [-width * 0.8, 0, width * 0.8],
+                    }),
+                },
+            ]
+        });
+        return ({
+            ...styles.item,
+            transform: [
+                {
+                    translateX: scrollAnimation.interpolate({
+                        inputRange: [width * (index - 1), width * index, width * (index + 1)],
+                        outputRange: [-width * 0.8, 0, width * 0.8],
+                    }),
+                },
+            ]
+        });
+    }
 
     return (
         <View style={styles.container}>
             <>
-            <Animated.FlatList
-                data={data}
-                bounces={false}
-                horizontal
-                style={{ width: "100%", height: "100%" }}
-                pagingEnabled
-                showsHorizontalScrollIndicator={false}
-                keyExtractor={item => item.id}
-                onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollAnimation } } }], { useNativeDriver: true })}
-                renderItem={({ item, index }) => {
-                    return (
-                        <View style={styles.item} >
-                            <img src={item.source} style={{
-                                width: "100%", height: "100%",
-
-                                transform: [{
-                                    translateX: scrollAnimation.interpolate({
-                                        inputRange: [width * (index - 1), width * index, width * (index + 1)],
-                                        outputRange: [-width * 0.8, 0, width * 0.8]
-                                    })
-                                }]
-                            }} />
-                            {/* <Animated.Image
-                                style={[styles.card, {
-                                    transform: [{
-                                        translateX: scrollAnimation.interpolate({
-                                            inputRange: [width * (index - 1), width * index, width * (index + 1)],
-                                            outputRange: [-width * 0.8, 0, width * 0.8]
-                                        })
-                                    }]
-                                }]}
-                                source={item.source} /> */}
-                        </View>
-
-                        // <LinearGradient
-                        //     colors={['#b473c0', '#88c2f6', '#2367f8']}
-                        //     style={styles.gradientContainer}
-                        //     start={{ x: 0.5, y: 0 }}
-                        //     end={{ x: 0, y: 0 }}
-                        // >
-                        /* <Animated.Image
-                            source={item.source}
-                            style={[styles.card, {
-                                width: '100%',
-                                height: '100%',
-                                transform: [{
-                                    translateX: scrollAnimation.interpolate({
-                                        inputRange: [width * (index - 1), width * index, width * (index + 1)],
-                                        outputRange: [-width * 0.8, 0, width * 0.8]
-                                    })
-                                }]
-                            }]}
-                        /> */
-                        /* <Animated.View style={styles.card}>
-                        </Animated.View> */
-                        /* </LinearGradient> */
-                    )
-                }}
-            />
-            <View>hello</View>
+                <AnimatedFlatList
+                    data={data}
+                    bounces={false}
+                    horizontal
+                    style={{ width: "100%", height: "100%" }}
+                    pagingEnabled
+                    showsHorizontalScrollIndicator={false}
+                    keyExtractor={item => item.id}
+                    onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollAnimation } } }], {
+                        useNativeDriver: true,
+                    })}
+                    renderItem={({ item, index }) => {
+                        return (
+                            <Pressable onPress={() => handleCardRotation()}>
+                                <Animated.View
+                                    style={getStyle(index)}
+                                >
+                                    <img
+                                        src={item.source}
+                                        style={{
+                                            width: "100%",
+                                            height: "100%",
+                                        }}
+                                    />
+                                </Animated.View>
+                            </Pressable>
+                        );
+                    }}
+                />
+                {/* <View>hello</View> */}
             </>
         </View>
     );
-
-    // const renderItem = ({ item }) => (
-    //     <View style={styles.slide}>
-    //         <Image source={{ uri: item.imageUrl }} style={styles.image} />
-    //         <View style={styles.textContainer}>
-    //             <Text style={styles.title}>{item.title}</Text>
-    //         </View>
-    //     </View>
-    // );
-
-    // const renderPagination = () => (
-    //     <Pagination
-    //         dotsLength={data.length}
-    //         activeDotIndex={activeSlide}
-    //         dotStyle={styles.paginationDot}
-    //         inactiveDotStyle={styles.paginationInactiveDot}
-    //         containerStyle={styles.paginationContainer}
-    //     />
-    // );
-
-    // const [activeSlide, setActiveSlide] = React.useState(0);
-
-    // return (
-    //     // <ParallaxScrollView
-    //     //     style={{ flex: 1, backgroundColor: 'white' }}
-    //     //     renderBackground={() => (
-    //     //         <Carousel
-    //     //             data={data}
-    //     //             renderItem={renderItem}
-    //     //             sliderWidth={width}
-    //     //             itemWidth={width}
-    //     //             onSnapToItem={(index) => setActiveSlide(index)}
-    //     //         />
-    //     //     )}
-    //     //     parallaxHeaderHeight={200}
-    //     // >
-    //     //     {renderPagination()}
-    //     // </ParallaxScrollView>
-    //     <View>
-    //         <Text>Hello</Text>
-    //         <Image
-    //             source={require('../../assets/images/Card1.svg')}
-    //             style={styles.card}
-    //         />
-    //     </View>
-    // );
 };
 
-export default ParallaxCarousel;
+export default CardCarousel;

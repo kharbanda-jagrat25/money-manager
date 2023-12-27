@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import Home from './screens/Home';
@@ -54,11 +54,11 @@ const TabIcon = ({ focused, icon, alt }) => (
 );
 
 const UnclickableTabButton = ({ tab }) => (
-    <TouchableOpacity onPress={() => {}} style={{ opacity: 0.4 }}>
+    <Pressable onPress={() => {}} style={{ opacity: 0.4 }}>
         <View pointerEvents="none" style={styles.unclickableContainer}>
             <img src={tab.icon} alt={tab.name} />
         </View>
-    </TouchableOpacity>
+    </Pressable>
 );
 
 const AppNavigator = () => {
@@ -116,13 +116,13 @@ const AppNavigator = () => {
             >
                 {tabs.map(tab => {
                     if (tab.component) return (
-                        <Tab.Screen name={tab.name} component={tab.component} options={{
+                        <Tab.Screen key={tab.name} name={tab.name} component={tab.component} options={{
                             headerShown: false,
                             tabBarIcon: ({ focused }) => <TabIcon focused={focused} icon={tab.icon} alt={tab.name} />,
                         }} />
                     );
                     return (
-                        <Tab.Screen name={tab.name} component={() => {}} options={{
+                        <Tab.Screen key={tab.name} name={tab.name} component={() => {}} options={{
                             headerShown: false,
                             tabBarButton: props => <UnclickableTabButton tab={tab} { ...props } />,
                         }} />
