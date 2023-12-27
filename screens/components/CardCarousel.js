@@ -13,12 +13,11 @@ const styles = StyleSheet.create({
         marginTop: '10%',
     },
     item: {
-        position: 'relative',
-        overflow: 'hidden',
+        // position: 'relative',
+        // overflow: 'hidden',
         width: '100%',
         height: '100%',
-        paddingRight: "10% !important",
-        marginRight: '10% !important'
+        paddingRight: '5%'
     },
     card: {
         // width: '100%',
@@ -63,50 +62,46 @@ const data = [
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 const CardCarousel = () => {
-    const [rotation, setRotation] = useState(false);
     const [scrollAnimation] = useState(new Animated.Value(0));
     const navigation = useNavigation();
 
     const handleCardRotation = () => {
-        setRotation(true);
-        // Perform slide animation logic here
         Animated.timing(scrollAnimation, {
-            toValue: 1,
-            duration: 0, // Adjust duration as needed
-            useNativeDriver: true,
+        toValue: 1,
+        duration: 0,
+        useNativeDriver: true,
         }).start(() => {
-            // Reset animation value after completion
+            // Reset animation values after completion
             scrollAnimation.setValue(0);
             navigation.navigate('ServiceCard');
-            setRotation(false);
         });
     }
 
-    const getStyle = (index) => {
-        if (rotation) return ({
-            ...styles.item,
-            transform: [
-                { rotate: '90deg' },
-                {
-                    translateX: scrollAnimation.interpolate({
-                        inputRange: [width * (index - 1), width * index, width * (index + 1)],
-                        outputRange: [-width * 0.8, 0, width * 0.8],
-                    }),
-                },
-            ]
-        });
-        // return ({
-        //     ...styles.item,
-        //     transform: [
-        //         {
-        //             translateX: scrollAnimation.interpolate({
-        //                 inputRange: [width * (index - 1), width * index, width * (index + 1)],
-        //                 outputRange: [-width * 0.8, 0, width * 0.8],
-        //             }),
-        //         },
-        //     ]
-        // });
-    }
+    // const getStyle = (index) => {
+    //     if (rotation) return ({
+    //         ...styles.item,
+    //         // transform: [
+    //         //     // { rotate: '90deg' },
+    //         //     {
+    //         //         translateX: scrollAnimation.interpolate({
+    //         //             inputRange: [width * (index - 1), width * index, width * (index + 1)],
+    //         //             outputRange: [-width * 0.8, 0, width * 0.8],
+    //         //         }),
+    //         //     },
+    //         // ]
+    //     });
+    //     // return ({
+    //     //     ...styles.item,
+    //     //     transform: [
+    //     //         {
+    //     //             translateX: scrollAnimation.interpolate({
+    //     //                 inputRange: [width * (index - 1), width * index, width * (index + 1)],
+    //     //                 outputRange: [-width * 0.8, 0, width * 0.8],
+    //     //             }),
+    //     //         },
+    //     //     ]
+    //     // });
+    // }
 
     return (
         <View style={styles.container}>
@@ -126,7 +121,7 @@ const CardCarousel = () => {
                         return (
                             <Pressable onPress={() => handleCardRotation()}>
                                 <Animated.View
-                                    style={getStyle(index)}
+                                    style={styles.item}
                                 >
                                     <img
                                         src={item.source}
@@ -150,9 +145,6 @@ const CardCarousel = () => {
                 />
                 {/* <View>hello</View> */}
             </>
-            {rotation && (
-                <ServiceCard />
-            )}
         </View>
     );
 };

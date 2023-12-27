@@ -1,7 +1,5 @@
-import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
 import { View, StyleSheet, Text, Image } from 'react-native';
-import Logo from '../assets/icons/logo.svg';
 import CardCarousel from './components/CardCarousel';
 import Header from './components/Header';
 import GradientContainer from './components/GradientContainer';

@@ -112,6 +112,7 @@ function HomeTabs() {
                 tabBarItemStyle: {
                     // backgroundColor: "linear-gradient(8.66deg, rgba(19, 27, 49, 0.92) 21.76%, rgba(47, 57, 91, 0.92) 97.66%)",
                 },
+                headerShown: false
             }}
         >
             {tabs.map(tab => {
@@ -120,10 +121,7 @@ function HomeTabs() {
                         key={tab.name}
                         name={tab.name}
                         component={tab.component}
-                        options={{
-                            headerShown: false,
-                            tabBarIcon: ({ focused }) => <TabIcon focused={focused} icon={tab.icon} alt={tab.name} />,
-                        }}
+                        options={{ tabBarIcon: ({ focused }) => <TabIcon focused={focused} icon={tab.icon} alt={tab.name} /> }}
                     />
                 );
                 return (
@@ -131,10 +129,7 @@ function HomeTabs() {
                         key={tab.name}
                         name={tab.name}
                         component={() => { }}
-                        options={{
-                            headerShown: false,
-                            tabBarButton: props => <UnclickableTabButton tab={tab} {...props} />,
-                        }}
+                        options={{ tabBarButton: props => <UnclickableTabButton tab={tab} {...props} /> }}
                     />
                 );
             })}
@@ -145,16 +140,14 @@ function HomeTabs() {
 const AppNavigator = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator>
+            <Stack.Navigator screenOptions={{ headerShown: false }}>
                 <Stack.Screen
                     name="Home"
                     component={HomeTabs}
-                    options={{ headerShown: false }}
                 />
                 <Stack.Screen
                     name="ServiceCard"
                     component={ServiceCard}
-                    options={{ headerShown: false }}
                 />
             </Stack.Navigator>
         </NavigationContainer>
