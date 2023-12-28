@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Animated, Pressable, Image } from 'react-native';
+import { View, StyleSheet, Animated, Pressable, Image, useWindowDimensions } from 'react-native';
 import Card1Img from '../../assets/images/Card1.svg';
 import Card2Img from '../../assets/images/Card2.svg';
 import { useNavigation } from '@react-navigation/native';
@@ -19,28 +19,23 @@ const styles = StyleSheet.create({
         width: 300,
         height: 473,
         marginRight: 20
-    }
-    // paginationContainer: {
-    //     position: 'absolute',
-    //     bottom: 10,
-    //     width: '100%',
-    //     justifyContent: 'center',
-    //     flexDirection: 'row',
-    // },
-    // paginationDot: {
-    //     width: 10,
-    //     height: 10,
-    //     borderRadius: 5,
-    //     backgroundColor: 'blue',
-    //     marginHorizontal: 8,
-    // },
-    // paginationInactiveDot: {
-    //     width: 10,
-    //     height: 10,
-    //     borderRadius: 5,
-    //     backgroundColor: 'lightgray',
-    //     marginHorizontal: 8,
-    // }
+    },
+    indicatorContainer: {
+        width: '100%',
+        height: '45%',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'relative'
+    },
+    normalDot: {
+        position: 'absolute',
+        top: 0,
+        height: 8,
+        width: 8,
+        borderRadius: 4,
+        marginHorizontal: 4,
+    },
 });
 
 const data = [
@@ -57,8 +52,10 @@ const data = [
 ];
 
 const CardCarousel = () => {
-    const [scrollAnimation] = useState(new Animated.Value(0));
     const navigation = useNavigation();
+    const { width: windowWidth } = useWindowDimensions();
+    const [scrollAnimation] = useState(new Animated.Value(0));
+    const [activeIndex, setActiveIndex] = useState(0);
 
     const handleCardRotation = () => {
         Animated.timing(scrollAnimation, {
@@ -72,6 +69,17 @@ const CardCarousel = () => {
         });
     }
 
+    const onScroll = Animated.event(
+        [],
+        { useNativeDriver: false, listener: (event) => handleScroll(event) }
+    );
+
+    const handleScroll = (event) => {
+        const offsetX = event.nativeEvent.contentOffset.x;
+        const index = Math.round(offsetX / windowWidth);
+        setActiveIndex(index);
+    };
+
     return (
         <View style={styles.mainContainer}>
             <Animated.FlatList
@@ -81,9 +89,10 @@ const CardCarousel = () => {
                 style={styles.flatlistContainer}
                 pagingEnabled
                 showsHorizontalScrollIndicator={false}
-                keyExtractor={item => item.id}
+                onScroll={onScroll}
+                scrollEventThrottle={1}
+                keyExtractor={card => card.id}
                 renderItem={({ item }) => {
-                    console.log('Rendering item:', item);
                     return (
                         <Pressable onPress={() => handleCardRotation()}>
                             <Animated.View
@@ -99,7 +108,21 @@ const CardCarousel = () => {
                     );
                 }}
             />
-            {/* <View>hello</View> */}
+            <View style={styles.indicatorContainer}>
+                {data.map((card, cardIndex) => {
+                    return (
+                        <Animated.View
+                            key={cardIndex}
+                            style={[
+                                styles.normalDot,
+                                { width: activeIndex === cardIndex ? 30 : 20 },
+                                {backgroundColor: activeIndex === cardIndex ? '#FFF' : '#000'},
+                                { marginRight: cardIndex + 1 !== data.length ? 60 : 0 }
+                            ]}
+                        />
+                    );
+                })}
+            </View>
         </View>
     );
 };
