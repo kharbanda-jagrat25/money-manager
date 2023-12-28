@@ -44,7 +44,7 @@ const ServiceCard = () => {
                 <Pressable onPress={navigateBack}>
                     <Image source={BackArrowIcon} alt='back' style={styles.backArrowIcon} />
                 </Pressable>
-                <Header heading={<>Service <br />Card</>} style={styles.heading} />
+                <Header heading={<>Service Card</>} style={styles.heading} />
                 <Pressable onPressIn={() => setCardPressed(true)} onPressOut={() => setCardPressed(false)}>
                     <Image
                         source={isCardPressed ? CardBackImg : CardFrontImg}

@@ -34,11 +34,11 @@ const styles = StyleSheet.create({
   }
 });
 
-const Home = ({ navigation }) => {
+const Home = () => {
   return (
     <GradientContainer>
       <View style={styles.container}>
-        <Header showLogo heading={<>Bank <br />Cards</>} />
+        <Header showLogo heading={`Bank \n Cards`} />
         <Text style={styles.balanceHeading}>Balance</Text>
         <Text style={styles.balanceAmount}>$2,748.00</Text>
       </View>
