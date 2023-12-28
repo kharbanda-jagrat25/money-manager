@@ -29,8 +29,6 @@ const styles = StyleSheet.create({
         position: 'relative'
     },
     normalDot: {
-        position: 'absolute',
-        top: 0,
         height: 8,
         width: 8,
         borderRadius: 4,
@@ -54,20 +52,9 @@ const data = [
 const CardCarousel = () => {
     const navigation = useNavigation();
     const { width: windowWidth } = useWindowDimensions();
-    const [scrollAnimation] = useState(new Animated.Value(0));
     const [activeIndex, setActiveIndex] = useState(0);
 
-    const handleCardRotation = () => {
-        Animated.timing(scrollAnimation, {
-            toValue: 1,
-            duration: 0,
-            useNativeDriver: true,
-        }).start(() => {
-            // Reset animation values after completion
-            scrollAnimation.setValue(0);
-            navigation.navigate('ServiceCard');
-        });
-    }
+    const navigateToServiceCardScreen = () => navigation.navigate('ServiceCard');
 
     const onScroll = Animated.event(
         [],
@@ -90,12 +77,11 @@ const CardCarousel = () => {
                 pagingEnabled
                 showsHorizontalScrollIndicator={false}
                 onScroll={onScroll}
-                scrollEventThrottle={1}
                 keyExtractor={card => card.id}
                 renderItem={({ item }) => {
                     return (
-                        <Pressable onPress={() => handleCardRotation()}>
-                            <Animated.View
+                        <Pressable onPress={() => navigateToServiceCardScreen()}>
+                            <View
                                 style={styles.item}
                             >
                                 <Image
@@ -103,21 +89,25 @@ const CardCarousel = () => {
                                     style={styles.card}
                                     sharedTransitionTag='tag'
                                 />
-                            </Animated.View>
+                            </View>
                         </Pressable>
                     );
                 }}
             />
             <View style={styles.indicatorContainer}>
-                {data.map((card, cardIndex) => {
+                {data.map((_, cardIndex) => {
                     return (
-                        <Animated.View
+                        <View
                             key={cardIndex}
                             style={[
                                 styles.normalDot,
-                                { width: activeIndex === cardIndex ? 30 : 20 },
-                                {backgroundColor: activeIndex === cardIndex ? '#FFF' : '#000'},
-                                { marginRight: cardIndex + 1 !== data.length ? 60 : 0 }
+                                {
+                                    position: 'absolute',
+                                    top: 0,
+                                    width: activeIndex === cardIndex ? 30 : 20,
+                                    backgroundColor: activeIndex === cardIndex ? '#FFF' : '#000',
+                                    marginRight: cardIndex + 1 !== data.length ? 60 : 0
+                                }
                             ]}
                         />
                     );
