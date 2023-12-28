@@ -16,8 +16,9 @@ const styles = StyleSheet.create({
         paddingRight: '5%'
     },
     card: {
-        width: "100%",
-        height: "100%"
+        width: 300,
+        height: 473,
+        marginRight: 20
     }
     // paginationContainer: {
     //     position: 'absolute',
@@ -61,9 +62,9 @@ const CardCarousel = () => {
 
     const handleCardRotation = () => {
         Animated.timing(scrollAnimation, {
-        toValue: 1,
-        duration: 0,
-        useNativeDriver: true,
+            toValue: 1,
+            duration: 0,
+            useNativeDriver: true,
         }).start(() => {
             // Reset animation values after completion
             scrollAnimation.setValue(0);
@@ -81,9 +82,6 @@ const CardCarousel = () => {
                 pagingEnabled
                 showsHorizontalScrollIndicator={false}
                 keyExtractor={item => item.id}
-                onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollAnimation } } }], {
-                    useNativeDriver: true,
-                })}
                 renderItem={({ item }) => {
                     console.log('Rendering item:', item);
                     return (
@@ -93,17 +91,8 @@ const CardCarousel = () => {
                             >
                                 <Image
                                     source={item.source}
-                                    style={{
-                                        ...styles.card,
-                                        // transform: [
-                                        //     {
-                                        //         translateX: scrollAnimation.interpolate({
-                                        //             inputRange: [width * (index - 1), width * index, width * (index + 1)],
-                                        //             outputRange: [-width * 0.8, 0, width * 0.8],
-                                        //         }),
-                                        //     },
-                                        // ]
-                                    }}
+                                    style={styles.card}
+                                    sharedTransitionTag='tag'
                                 />
                             </Animated.View>
                         </Pressable>
