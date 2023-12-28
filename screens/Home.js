@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
   },
   carouselContainer: {
     marginLeft: "4.3%",
+    marginTop: "10%",
     height: '100%'
   },
   fakeContainer: {

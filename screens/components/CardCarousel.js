@@ -6,8 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 
 const styles = StyleSheet.create({
     mainContainer: {
-        flex: 1,
-        marginTop: '10%',
+        flex: 1
     },
     flatlistContainer: {
         flex: 1
@@ -16,6 +15,10 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingRight: '5%'
     },
+    card: {
+        width: "100%",
+        height: "100%"
+    }
     // paginationContainer: {
     //     position: 'absolute',
     //     bottom: 10,
@@ -91,8 +94,7 @@ const CardCarousel = () => {
                                 <Image
                                     source={item.source}
                                     style={{
-                                        width: "100%",
-                                        height: "100%",
+                                        ...styles.card,
                                         // transform: [
                                         //     {
                                         //         translateX: scrollAnimation.interpolate({
