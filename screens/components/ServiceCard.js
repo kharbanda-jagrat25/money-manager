@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import GradientContainer from './GradientContainer';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Animated, Image, Pressable, StyleSheet, View } from 'react-native';
 import Header from './Header';
 import BackArrowIcon from '../../assets/icons/backArrow.svg';
 import { useNavigation } from '@react-navigation/native';
@@ -8,22 +8,27 @@ import CardFrontImg from '../../assets/images/CardFront.svg';
 import CardBackImg from '../../assets/images/CardBack.svg';
 
 const styles = StyleSheet.create({
-    container: {
+    mainContainer: {
+        marginTop: '10%',
         marginLeft: '4.3%',
-        // flex: 1,
-        // justifyContent: 'center',
-        // alignItems: 'center',
-        // transform: [{ rotate: '90deg' }],
+        flex: 1
     },
     backArrowIcon: {
         width: 20,
         height: 20
     },
+    heading: {
+        marginTop: 0
+    },
     card: {
-        width: '92%',
-        height: '92%',
+        width: 365,
+        height: 231,
         marginLeft: '1.5%',
         marginTop: '5%'
+    },
+    secondaryContainer: {
+        width: '100%',
+        height: '55%'
     }
 });
 
@@ -35,18 +40,20 @@ const ServiceCard = () => {
 
     return (
         <GradientContainer>
-            <View style={styles.container}>
+            <View style={styles.mainContainer}>
                 <Pressable onPress={navigateBack}>
-                    <img src={BackArrowIcon} alt='back' style={styles.backArrowIcon} />
+                    <Image source={BackArrowIcon} alt='back' style={styles.backArrowIcon} />
                 </Pressable>
-                <Header heading={<>Service <br />Card</>} />
+                <Header heading={<>Service <br />Card</>} style={styles.heading} />
                 <Pressable onPressIn={() => setCardPressed(true)} onPressOut={() => setCardPressed(false)}>
-                    <img
-                        src={isCardPressed ? CardBackImg : CardFrontImg}
+                    <Image
+                        source={isCardPressed ? CardBackImg : CardFrontImg}
                         style={styles.card}
+                        sharedTransitionTag='tag'
                     />
                 </Pressable>
             </View>
+            <View style={styles.secondaryContainer}></View>
         </GradientContainer>
     );
 }

@@ -29,10 +29,10 @@ const styles = StyleSheet.create({
     },
 });
 
-const Header = ({ heading, showLogo }) => {
+const Header = ({ heading, showLogo, style }) => {
     return (
         <GradientContainer>
-            <View style={styles.mainContainer}>
+            <View style={{ ...styles.mainContainer, ...style }}>
                 <View style={styles.headingContainer}>
                     <Text style={styles.heading}>{heading}</Text>
                     {showLogo && (

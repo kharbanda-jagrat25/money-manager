@@ -37,7 +37,8 @@ const styles = StyleSheet.create({
         height: "35%",
     },
     unclickableContainer: {
-        marginTop: 11
+        marginTop: 11,
+        pointerEvents: 'none'
     }
 });
 
@@ -58,7 +59,7 @@ const TabIcon = ({ focused, icon, alt }) => (
 
 const UnclickableTabButton = ({ tab }) => (
     <Pressable onPress={() => {}} style={{ opacity: 0.4 }}>
-        <View pointerEvents="none" style={styles.unclickableContainer}>
+        <View style={styles.unclickableContainer}>
             <img src={tab.icon} alt={tab.name} />
         </View>
     </Pressable>
@@ -142,7 +143,7 @@ const AppNavigator = () => {
         <NavigationContainer>
             <Stack.Navigator screenOptions={{ headerShown: false }}>
                 <Stack.Screen
-                    name="Home"
+                    name="HomeTabs"
                     component={HomeTabs}
                 />
                 <Stack.Screen

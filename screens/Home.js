@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 700,
     color: '#94A3D3',
-    marginTop: 25
+    marginTop: '5%'
   },
   balanceAmount: {
     fontSize: 26,
@@ -23,6 +23,13 @@ const styles = StyleSheet.create({
     marginTop: '10%',
     width: '55%',
     height: '45%'
+  },
+  carouselContainer: {
+    marginLeft: "4.3%",
+    height: '100%'
+  },
+  fakeContainer: {
+    height: '50%'
   }
 });
 
@@ -34,38 +41,10 @@ const Home = ({ navigation }) => {
         <Text style={styles.balanceHeading}>Balance</Text>
         <Text style={styles.balanceAmount}>$2,748.00</Text>
       </View>
-      <View style={{ marginLeft: "4.3%" }}>
+      <View style={styles.carouselContainer}>
         <CardCarousel />
       </View>
     </GradientContainer>
-    // <LinearGradient
-    //   colors={['#1A2440', '#313C5C']}
-    //   style={styles.gradientContainer}
-    //   start={{ x: 0.5, y: 0 }}
-    //   end={{ x: 0, y: 0 }}
-    // >
-    //   <View style={styles.mainContainer}>
-    //     <View style={styles.headingContainer}>
-    //       <Text style={styles.heading}>Bank <br />Cards</Text>
-    //       <Image
-    //         source={Logo}
-    //         style={styles.logo}
-    //       />
-    //     </View>
-    //     <Text style={styles.balanceHeading}>Balance</Text>
-    //     <Text style={styles.balanceAmount}>$2,748.00</Text>
-    //     {/* 34px from upper container */}
-    //     {/* <View style={{height: "90%"}}> */}
-    //     <CardCarousel />
-
-    //     {/* </View> */}
-    //     {/* <Image
-    //       source={Card1Img}
-    //       resizeMode='cover'
-    //       style={styles.card}
-    //     /> */}
-    //   </View>
-    // </LinearGradient>
   );
 };
 
