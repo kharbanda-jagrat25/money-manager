@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import GradientContainer from './GradientContainer';
-import { Animated, Image, Pressable, StyleSheet, View } from 'react-native';
+import { Image, Pressable, StyleSheet, View } from 'react-native';
 import Header from './Header';
 import BackArrowIcon from '../../assets/icons/backArrow.svg';
 import { useNavigation } from '@react-navigation/native';

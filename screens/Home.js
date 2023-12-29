@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, Image } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import CardCarousel from './components/CardCarousel';
 import Header from './components/Header';
 import GradientContainer from './components/GradientContainer';
