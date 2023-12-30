@@ -101,8 +101,8 @@ const Catalogue = ({ navigation }) => {
       <View style={styles.container}>
         <Header showLogo heading="Catalogue" />
         <View style={styles.catalogueContainer}>
-          {catalogueList?.map(({ icon, debt, category }) => (
-            <View style={styles.individualCatalogueContainer}>
+          {catalogueList?.map(({ icon, debt, category }, index) => (
+            <View key={`${category}_${index}`} style={styles.individualCatalogueContainer}>
               <img src={icon} alt={category} style={styles.icon} />
               <View style={styles.catalogue}>
                 <View style={styles.info}>

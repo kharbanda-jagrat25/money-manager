@@ -13,7 +13,7 @@ import HomeIcon from "./assets/icons/home.svg";
 import MenuIcon from "./assets/icons/menu.svg";
 import CatalogIcon from "./assets/icons/catalog.svg";
 import HistoryIcon from "./assets/icons/history.svg";
-import ServiceCard from './screens/components/ServiceCard';
+import SalaryCard from './screens/components/SalaryCard';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -147,8 +147,8 @@ const AppNavigator = () => {
                     component={HomeTabs}
                 />
                 <Stack.Screen
-                    name="ServiceCard"
-                    component={ServiceCard}
+                    name="SalaryCard"
+                    component={SalaryCard}
                 />
             </Stack.Navigator>
         </NavigationContainer>

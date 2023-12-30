@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
     heading: {
         fontSize: 32,
         fontWeight: 700,
-        textAlign: 'left',
         color: '#FFFFFF'
     },
     logo: {

@@ -13,7 +13,10 @@ const GradientContainer = (props) => {
   return (
     <LinearGradient
       colors={['#1A2440', '#313C5C']}
-      style={styles.gradientContainer}
+      style={{
+        ...styles.gradientContainer,
+        ...props.styles
+      }}
       start={{ x: 0.5, y: 0 }}
       end={{ x: 0, y: 0 }}
     >

@@ -38,7 +38,7 @@ const Home = () => {
   return (
     <GradientContainer>
       <View style={styles.container}>
-        <Header showLogo heading={`Bank \n Cards`} />
+        <Header showLogo heading={<View><Text>Bank</Text><Text>Cards</Text></View>} />
         <Text style={styles.balanceHeading}>Balance</Text>
         <Text style={styles.balanceAmount}>$2,748.00</Text>
       </View>
