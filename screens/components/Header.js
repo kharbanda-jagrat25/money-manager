@@ -34,12 +34,12 @@ const Header = ({ heading, showLogo, style }) => {
             <View style={{ ...styles.mainContainer, ...style }}>
                 <View style={styles.headingContainer}>
                     <Text style={styles.heading}>{heading}</Text>
-                    {showLogo && (
+                    {showLogo ? (
                         <Image
                             source={Logo}
                             style={styles.logo}
                         />
-                    )}
+                    ) : null}
                 </View>
                 {/* <Text style={styles.balanceHeading}>Balance</Text> */}
                 {/* <Text style={styles.balanceAmount}>$2,748.00</Text> */}

@@ -54,7 +54,7 @@ const CardCarousel = () => {
     const { width: windowWidth } = useWindowDimensions();
     const [activeIndex, setActiveIndex] = useState(0);
 
-    const navigateToServiceCardScreen = () => navigation.navigate('ServiceCard');
+    const navigateToSalaryCardScreen = () => navigation.navigate('SalaryCard');
 
     const onScroll = Animated.event(
         [],
@@ -80,7 +80,7 @@ const CardCarousel = () => {
                 keyExtractor={card => card.id}
                 renderItem={({ item }) => {
                     return (
-                        <Pressable onPress={() => navigateToServiceCardScreen()}>
+                        <Pressable onPress={() => navigateToSalaryCardScreen()}>
                             <View
                                 style={styles.item}
                             >

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { View, Text, StyleSheet, Pressable, Image } from 'react-native';
 
 import GradientContainer from './components/GradientContainer';
 import Header from './components/Header';
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   payButton: {
     width: "65px",
     height: " 38px",
-    borderRadius: "10px",
+    borderRadius: 10,
     border: "1px solid #7295FB66",
     color: "#7295FB",
     fontSize: "16px",
@@ -66,6 +66,10 @@ const styles = StyleSheet.create({
   disabled: {
     opacity: 0.2,
     pointerEvents: 'none',
+  },
+  icon: {
+    width: 50,
+    height: 50,
   }
 });
 
@@ -103,7 +107,7 @@ const Catalogue = ({ navigation }) => {
         <View style={styles.catalogueContainer}>
           {catalogueList?.map(({ icon, debt, category }, index) => (
             <View key={`${category}_${index}`} style={styles.individualCatalogueContainer}>
-              <img src={icon} alt={category} style={styles.icon} />
+              <Image source={icon} style={styles.icon} />
               <View style={styles.catalogue}>
                 <View style={styles.info}>
                   <Text style={styles.category}>{category}</Text>
@@ -114,7 +118,7 @@ const Catalogue = ({ navigation }) => {
                 <Pressable onPress={() => { }}>
                   <Text style={{
                     ...styles.payButton,
-                    ...!debt && styles.disabled
+                    ...!debt ? styles.disabled : {}
                   }}>
                     Pay
                   </Text>

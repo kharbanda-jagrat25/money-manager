@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import Home from './screens/Home';
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
     activeIndividualTabWrapper: {
-        borderRadius: "50%",
+        borderRadius: 50,
         boxShadow: "0px 4px 4px 0px #00000040",
     },
     activeTabIcon: {
@@ -39,10 +39,18 @@ const styles = StyleSheet.create({
     unclickableContainer: {
         marginTop: 11,
         pointerEvents: 'none'
+    },
+    tabIcon: {
+        width: 20,
+        height: 20,
+    },
+    unclickableTabIcon: {
+        width: 55,
+        height: 55,
     }
 });
 
-const TabIcon = ({ focused, icon, alt }) => (
+const TabIcon = ({ focused, icon }) => (
     focused ? (
         <LinearGradient
             start={{ x: 0, y: 0 }}
@@ -53,14 +61,15 @@ const TabIcon = ({ focused, icon, alt }) => (
                 ...styles.activeIndividualTabWrapper,
             }}
         >
-            <img style={styles.activeTabIcon} src={icon} alt={alt} />
-        </LinearGradient>) : <img src={icon} alt={alt} />
+            <Image style={styles.activeTabIcon} source={icon} />
+        </LinearGradient>) : 
+        <Image source={icon}  style={styles.tabIcon}  />
 );
 
 const UnclickableTabButton = ({ tab }) => (
-    <Pressable onPress={() => {}} style={{ opacity: 0.4 }}>
+    <Pressable onPress={() => { }} style={{ opacity: 0.4 }}>
         <View style={styles.unclickableContainer}>
-            <img src={tab.icon} alt={tab.name} />
+            <Image source={tab.icon} style={styles.unclickableTabIcon} />
         </View>
     </Pressable>
 );
@@ -102,16 +111,10 @@ function HomeTabs() {
                 ),
                 tabBarShowLabel: false,
                 tabBarStyle: {
-                    // backgroundColor: "linear-gradient(8.66deg, rgba(19, 27, 49, 0.92) 21.76%, rgba(47, 57, 91, 0.92) 97.66%)",
-                    // borderTopLeftRadius: "30px",
-                    // borderTopRightRadius: "30px",
                     height: "80px",
                     border: "none",
                     position: 'absolute',
                     bottom: 0,
-                },
-                tabBarItemStyle: {
-                    // backgroundColor: "linear-gradient(8.66deg, rgba(19, 27, 49, 0.92) 21.76%, rgba(47, 57, 91, 0.92) 97.66%)",
                 },
                 headerShown: false
             }}
@@ -122,7 +125,7 @@ function HomeTabs() {
                         key={tab.name}
                         name={tab.name}
                         component={tab.component}
-                        options={{ tabBarIcon: ({ focused }) => <TabIcon focused={focused} icon={tab.icon} alt={tab.name} /> }}
+                        options={{ tabBarIcon: ({ focused }) => <TabIcon focused={focused} icon={tab.icon} /> }}
                     />
                 );
                 return (

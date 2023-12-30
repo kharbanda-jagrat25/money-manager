@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     marginRight: "4.3%",
     width: "54px",
     height: "54px",
-    borderRadius: "10px",
+    borderRadius: 10,
     border: "1px solid rgba(255, 255, 255, 0.2)",
     color: "#7295FB",
     fontSize: "16px",
@@ -94,7 +94,7 @@ const SalaryCard = () => {
               style={styles.backArrowIcon}
             />
           </Pressable>
-          {showStaticHeader && (
+          {showStaticHeader ? (
             <Text
               style={{
                 flex: 1,
@@ -108,7 +108,7 @@ const SalaryCard = () => {
             >
               Salary Card
             </Text>
-          )}
+          ) : null}
         </View>
         <View style={{ marginBottom: "3%" }}>
           {showStaticHeader ? null : (
@@ -159,7 +159,7 @@ const SalaryCard = () => {
         handlePosition="inside"
         ref={modalizeRef}
         modalStyle={{
-          borderRadius: "10%",
+          borderRadius: 10,
           backgroundColor: "rgba(28, 38, 65, 1)",
           boxShadow: "0px 4px 4px 0px #00000040",
         }}
@@ -172,7 +172,7 @@ const SalaryCard = () => {
         <View
           style={{
             backgroundColor: "rgba(28, 38, 65, 1)",
-            borderRadius: "20px",
+            borderRadius: 20,
             border: "1px solid rgba(28, 38, 65, 1)",
           }}
         >
