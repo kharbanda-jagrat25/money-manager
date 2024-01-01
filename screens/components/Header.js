@@ -1,24 +1,24 @@
-import React from 'react';
-import { View, StyleSheet, Text, Image } from 'react-native';
+import React from "react";
+import { View, StyleSheet, Text, Image } from "react-native";
 
-import Logo from '../../assets/icons/logo.png';
+import Logo from "../../assets/icons/logo.png";
 
 const styles = StyleSheet.create({
     mainContainer: {
         marginTop: 70,
     },
     headingContainer: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        flexDirection: 'row',
-        marginTop: '4.4%',
-        marginRight: '4.3%'
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        flexDirection: "row",
+        marginTop: "4.4%",
+        marginRight: "4.3%"
     },
     heading: {
         fontSize: 32,
-        fontWeight: 700,
-        color: '#FFFFFF'
+        fontWeight: "900",
+        color: "#FFFFFF"
     },
     logo: {
         width: 36,
@@ -35,7 +35,7 @@ const Header = ({ heading, showLogo, style }) => {
                     <Image
                         source={Logo}
                         style={styles.logo}
-                        resizeMode='cover'
+                        resizeMode="cover"
                     />
                 ) : null}
             </View>

@@ -1,8 +1,8 @@
-import React, { useRef, useState } from 'react';
-import { View, StyleSheet, Animated, Pressable, Image, useWindowDimensions } from 'react-native';
-import Card1Img from '../../assets/images/Card1.png';
-import Card2Img from '../../assets/images/Card2.png';
-import { useNavigation } from '@react-navigation/native';
+import React, { useRef, useState } from "react";
+import { View, StyleSheet, Animated, Pressable, Image, useWindowDimensions } from "react-native";
+import Card1Img from "../../assets/images/Card1.png";
+import Card2Img from "../../assets/images/Card2.png";
+import { useNavigation } from "@react-navigation/native";
 
 const styles = StyleSheet.create({
     mainContainer: {
@@ -13,22 +13,22 @@ const styles = StyleSheet.create({
     },
     item: {
         flex: 1,
-        paddingRight: '5%'
+        paddingRight: "5%"
     },
     card: {
         width: 280,
         height: 443
     },
     indicatorContainer: {
-        width: '100%',
-        height: '45%',
-        overflow: 'hidden'
+        width: "100%",
+        height: "45%",
+        overflow: "hidden"
     },
     indicatorWrapper: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '100%',
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        width: "100%",
         marginTop: 10
     },
     normalDot: {
@@ -42,12 +42,12 @@ const styles = StyleSheet.create({
 const data = [
     {
         id: 1,
-        title: 'Card 1',
+        title: "Card 1",
         source: Card1Img
     },
     {
         id: 2,
-        title: 'Card 2',
+        title: "Card 2",
         source: Card2Img
     },
 ];
@@ -58,7 +58,7 @@ const CardCarousel = () => {
     const { width: windowWidth } = useWindowDimensions();
     const [activeIndex, setActiveIndex] = useState(0);
 
-    const navigateToSalaryCardScreen = () => navigation.navigate('SalaryCard');
+    const navigateToSalaryCardScreen = () => navigation.navigate("SalaryCard");
 
     const navigateToRespectiveCard = (index) => flatListRef.current.scrollToIndex({ index, animated: true });
 
@@ -88,7 +88,7 @@ const CardCarousel = () => {
                 renderItem={({ item, index }) => {
                     return (
                         <Pressable onPress={() => navigateToSalaryCardScreen()}>
-                            <View style={[ styles.item, index + 1 === data.length ? { marginRight: 50 } : { marginLeft: 20 } ]}>
+                            <View style={[styles.item, index + 1 === data.length ? { marginRight: 50 } : { marginLeft: 20 }]}>
                                 <Image
                                     source={item.source}
                                     style={styles.card}
@@ -108,7 +108,7 @@ const CardCarousel = () => {
                                         styles.normalDot,
                                         {
                                             width: activeIndex === cardIndex ? 30 : 20,
-                                            backgroundColor: activeIndex === cardIndex ? '#FFF' : '#000',
+                                            backgroundColor: activeIndex === cardIndex ? "#FFF" : "#000",
                                         }
                                     ]}
                                 />

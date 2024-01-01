@@ -1,26 +1,25 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Pressable, StyleSheet, View, Image } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Pressable, StyleSheet, View, Image, Platform } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 
-import Home from './screens/Home';
-import Catalogue from './screens/Catalogue';
-import History from './screens/History';
+import Home from "./screens/Home";
+import Catalogue from "./screens/Catalogue";
+import History from "./screens/History";
 
 import HomeIcon from "./assets/icons/home.png";
 import MenuIcon from "./assets/icons/menu.png";
 import CatalogIcon from "./assets/icons/catalog.png";
 import HistoryIcon from "./assets/icons/history.png";
-import SalaryCard from './screens/components/SalaryCard';
+import SalaryCard from "./screens/components/SalaryCard";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const styles = StyleSheet.create({
     individualTabWrapper: {
-        backgroundImage: "none",
         height: 58,
         width: 58,
         display: "flex",
@@ -28,10 +27,23 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         borderRadius: 50,
         boxShadow: "0px 4px 4px 0px #00000040",
+        ...Platform.select({
+            android: {
+                marginBottom: 10
+            },
+          }),
+       
     },
     unclickableContainer: {
-        pointerEvents: 'none',
-        marginTop: 12
+        pointerEvents: "none",
+        ...Platform.select({
+            android: {
+                marginTop: 10
+            },
+            ios: {
+                marginTop: 12
+            }
+          }),
     },
     tabIcon: {
         width: 55,
@@ -40,24 +52,28 @@ const styles = StyleSheet.create({
 });
 
 const TabIcon = ({ focused, icon }) => (
-    <View style={{ marginTop: 30}}>
-        {focused ? (
-            <LinearGradient
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-                colors={["rgba(93, 158, 255, 1)", "rgba(119, 81, 253, 1)"]}
-                style={
-                    styles.individualTabWrapper
-                }
-            >
-                <Image style={{
-                    ...styles.tabIcon,
-                    tintColor: 'rgba(255, 255, 255, 1)',
+    focused ? (
+        <LinearGradient
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            colors={["rgba(93, 158, 255, 1)", "rgba(119, 81, 253, 1)"]}
+            style={
+                styles.individualTabWrapper
+            }
+        >
+            <Image style={{
+                ...styles.tabIcon,
+                tintColor: "rgba(255, 255, 255, 1)",
 
-                }} source={icon} />
-            </LinearGradient>) :
-            <Image source={icon} style={styles.tabIcon} />}
-    </View>
+            }} source={icon} />
+        </LinearGradient>) : <Image source={icon} style={{
+            ...styles.tabIcon,
+            ...Platform.select({
+                android: {
+                    marginBottom: 10
+                },
+              }),
+        }} />
 );
 
 const UnclickableTabButton = ({ tab }) => (
@@ -99,16 +115,25 @@ function HomeTabs() {
                     <LinearGradient
                         start={{ x: 0, y: 0 }}
                         end={{ x: 1, y: 0 }}
-                        style={{ height: 100,  borderTopLeftRadius: "40px", borderTopEndRadius: "40px", boxShadow: "0px 4px 4px 0px #00000040" }}
-                        colors={["rgba(19, 27, 49, 0.92)", " rgba(47, 57, 91, 0.92)"]}
+                        style={{ height: 100, borderTopLeftRadius: 40, borderTopRightRadius: 40, boxShadow: "0px 4px 4px 0px #00000040" }}
+                        colors={["rgba(19, 27, 49, 0.92)", "rgba(47, 57, 91, 0.92)"]}
                     />
                 ),
+                tabBarItemStyle: {
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: 100,
+                    height: 80,
+                },
                 tabBarShowLabel: false,
                 tabBarStyle: {
                     height: 80,
                     border: "none",
-                    position: 'absolute',
+                    position: "absolute",
                     bottom: 0,
+                    borderTopWidth: 0,  
+                    
                 },
                 headerShown: false
             }}

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { Image, Pressable, StyleSheet, View, Text } from "react-native";
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Modalize } from "react-native-modalize";
 
 import GradientContainer from "./GradientContainer";
@@ -40,13 +40,13 @@ const styles = StyleSheet.create({
     },
     balanceHeading: {
         fontSize: 16,
-        fontWeight: 700,
+        fontWeight: "700",
         color: "rgba(148, 163, 211, 1)",
         marginTop: "5%",
     },
     balanceAmount: {
         fontSize: 26,
-        fontWeight: 700,
+        fontWeight: "700",
         color: "#FFFFFF",
     },
     icon: {
@@ -63,9 +63,9 @@ const styles = StyleSheet.create({
 });
 
 const SalaryCard = () => {
+    const route = useRoute();
     const modalizeRef = useRef(null);
     const navigation = useNavigation();
-
     const [isCardPressed, setCardPressed] = useState(false);
     const [showStaticHeader, setShowStaticHeader] = useState(false);
 
@@ -93,7 +93,7 @@ const SalaryCard = () => {
                                 justifyContent: "center",
                                 display: "flex",
                                 fontSize: 17,
-                                fontWeight: 900,
+                                fontWeight: "900",
                                 color: "white",
                             }}
                         >
@@ -155,7 +155,10 @@ const SalaryCard = () => {
                             borderColor: "rgba(28, 38, 65, 1)",
                         }}
                     >
-                        <TransactionList />
+                        <TransactionList
+                            fromSalaryCard
+                            updateShowDetails={route.params?.showDetails}
+                        />
                     </View>
                 </Modalize>
             </GestureHandlerRootView>

@@ -1,8 +1,8 @@
-import React from 'react';
-import { View, Text, StyleSheet, Pressable, Image } from 'react-native';
+import React from "react";
+import { View, Text, StyleSheet, Pressable, Image } from "react-native";
 
-import GradientContainer from './components/GradientContainer';
-import Header from './components/Header';
+import GradientContainer from "./components/GradientContainer";
+import Header from "./components/Header";
 
 import MobileIcon from "../assets/icons/mobile.png";
 import WifiIcon from "../assets/icons/wifi.png";
@@ -13,7 +13,7 @@ import UtilityIcon from "../assets/icons/utility.png";
 
 const styles = StyleSheet.create({
   container: {
-    marginLeft: '4.3%',
+    marginLeft: "4.3%",
     marginRight: "4.3%"
   },
   catalogueContainer: {
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     flex: 1,
-    borderBottomWidth: "2px",
+    borderBottomWidth: 2,
     borderBottomColor: "#2D3757",
     paddingTop: "4%",
     paddingBottom: "4%",
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   },
   category: {
     marginBottom: "4%",
-    fontWeight: 500,
+    fontWeight:"500", 
     fontSize: 16,
     color: "#fff",
   },
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   debt: {
     color: "#94A3D3",
     fontSize: 14,
-    fontWeight: 700,
+    fontWeight: "700",
   },
   payButton: {
     width: 65,
@@ -58,18 +58,18 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#7295FB66",
     fontSize: 16,
-    fontWeight: "500",
+    ght: "500",
     display: "flex",
     alignItems: "center",
     justifyContent: "center"
   },
   payButtonText: {
     color: "#7295FB",
-    textAlign: 'center',
+    textAlign: "center",
   },
   disabled: {
     opacity: 0.2,
-    pointerEvents: 'none',
+    pointerEvents: "none",
   },
   icon: {
     width: 50,
@@ -80,27 +80,27 @@ const styles = StyleSheet.create({
 const catalogueList = [{
   icon: MobileIcon,
   debt: 34,
-  category: 'Mobile'
+  category: "Mobile"
 },
 {
   icon: WifiIcon,
   debt: 21,
-  category: 'Internet and TV'
+  category: "Internet and TV"
 },
 {
   icon: CarIcon,
   debt: 1221,
-  category: 'Traffic Fines'
+  category: "Traffic Fines"
 },
 {
   icon: HouseIcon,
   debt: 0,
-  category: 'Housing Services'
+  category: "Housing Services"
 },
 {
   icon: UtilityIcon,
   debt: 442,
-  category: 'Utility Payment'
+  category: "Utility Payment"
 }]
 
 const Catalogue = ({ navigation }) => {

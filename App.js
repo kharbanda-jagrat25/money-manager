@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import AppLoading from 'expo-app-loading';
+import React, { useState } from "react";
+import AppLoading from "expo-app-loading";
 
-import AppNavigator from './AppNavigator';
+import AppNavigator from "./AppNavigator";
 
-import * as Font from 'expo-font';
+import * as Font from "expo-font";
 
 const loadFonts = async () => {
   await Font.loadAsync({
-    'Poppins': require('./assets/fonts/Poppins.ttf')
+    "Poppins": require("./assets/fonts/Poppins.ttf")
   });
 };
 

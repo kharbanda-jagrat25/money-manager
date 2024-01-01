@@ -1,18 +1,18 @@
-import { LinearGradient } from 'expo-linear-gradient';
-import React from 'react';
-import { StyleSheet } from 'react-native';
+import { LinearGradient } from "expo-linear-gradient";
+import React from "react";
+import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   gradientContainer: {
     flex: 1,
-    fontFamily: 'Poppins',
+    fontFamily: "Poppins",
   },
 });
 
 const GradientContainer = (props) => {
   return (
     <LinearGradient
-      colors={['#1A2440', '#313C5C']}
+      colors={["#1A2440", "#313C5C"]}
       style={{
         ...styles.gradientContainer,
         ...props.styles
