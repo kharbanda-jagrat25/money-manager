@@ -132,7 +132,7 @@ const SalaryCard = () => {
             <GestureHandlerRootView style={{ flex: 1 }}>
                 <Modalize
                     alwaysOpen={350}
-                    modalHeight={725}
+                    modalHeight={705}
                     withOverlay={false}
                     handlePosition="inside"
                     ref={modalizeRef}

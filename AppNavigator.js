@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
             android: {
                 marginBottom: 10
             },
-          }),
-       
+        }),
+
     },
     unclickableContainer: {
         pointerEvents: "none",
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
             ios: {
                 marginTop: 12
             }
-          }),
+        }),
     },
     tabIcon: {
         width: 55,
@@ -72,7 +72,7 @@ const TabIcon = ({ focused, icon }) => (
                 android: {
                     marginBottom: 10
                 },
-              }),
+            }),
         }} />
 );
 
@@ -132,8 +132,8 @@ function HomeTabs() {
                     border: "none",
                     position: "absolute",
                     bottom: 0,
-                    borderTopWidth: 0,  
-                    
+                    borderTopWidth: 0,
+
                 },
                 headerShown: false
             }}
