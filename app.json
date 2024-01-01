@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "moneyManager",
-    "slug": "moneyManager",
+    "slug": "moneymanager",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -25,6 +25,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c89a252f-7b05-4a9e-bdad-f140751c1d8a"
+      }
+    },
+    "owner": "jagrat_kharbanda"
   }
 }
