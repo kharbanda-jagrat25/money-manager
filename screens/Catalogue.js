@@ -4,11 +4,11 @@ import { View, Text, StyleSheet, Pressable, Image } from 'react-native';
 import GradientContainer from './components/GradientContainer';
 import Header from './components/Header';
 
-import MobileIcon from "../assets/icons/mobile.svg";
-import WifiIcon from "../assets/icons/wifi.svg";
-import CarIcon from "../assets/icons/car.svg";
-import HouseIcon from "../assets/icons/house.svg";
-import UtilityIcon from "../assets/icons/utility.svg";
+import MobileIcon from "../assets/icons/mobile.png";
+import WifiIcon from "../assets/icons/wifi.png";
+import CarIcon from "../assets/icons/car.png";
+import HouseIcon from "../assets/icons/house.png";
+import UtilityIcon from "../assets/icons/utility.png";
 
 
 const styles = StyleSheet.create({
@@ -42,26 +42,30 @@ const styles = StyleSheet.create({
   category: {
     marginBottom: "4%",
     fontWeight: 500,
-    fontSize: "16px",
+    fontSize: 16,
     color: "#fff",
   },
 
   debt: {
     color: "#94A3D3",
-    fonSize: "14px",
+    fontSize: 14,
     fontWeight: 700,
   },
   payButton: {
-    width: "65px",
-    height: " 38px",
+    width: 65,
+    height: 38,
     borderRadius: 10,
-    border: "1px solid #7295FB66",
-    color: "#7295FB",
-    fontSize: "16px",
+    borderWidth: 1,
+    borderColor: "#7295FB66",
+    fontSize: 16,
     fontWeight: "500",
     display: "flex",
     alignItems: "center",
     justifyContent: "center"
+  },
+  payButtonText: {
+    color: "#7295FB",
+    textAlign: 'center',
   },
   disabled: {
     opacity: 0.2,
@@ -115,14 +119,14 @@ const Catalogue = ({ navigation }) => {
                     The debt is ${debt?.toLocaleString("en", { minimumFractionDigits: 2 })}
                   </Text>
                 </View>
-                <Pressable onPress={() => { }}>
-                  <Text style={{
+                <View>
+                  <Pressable onPress={() => { }} style={{
                     ...styles.payButton,
                     ...!debt ? styles.disabled : {}
                   }}>
-                    Pay
-                  </Text>
-                </Pressable>
+                    <Text style={styles.payButtonText}>Pay</Text>
+                  </Pressable>
+                </View>
               </View>
             </View>
           ))}

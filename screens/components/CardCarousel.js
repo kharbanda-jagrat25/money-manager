@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { View, StyleSheet, Animated, Pressable, Image, useWindowDimensions } from 'react-native';
-import Card1Img from '../../assets/images/Card1.svg';
-import Card2Img from '../../assets/images/Card2.svg';
+import Card1Img from '../../assets/images/Card1.png';
+import Card2Img from '../../assets/images/Card2.png';
 import { useNavigation } from '@react-navigation/native';
 
 const styles = StyleSheet.create({
@@ -16,17 +16,20 @@ const styles = StyleSheet.create({
         paddingRight: '5%'
     },
     card: {
-        width: 300,
-        height: 473,
-        marginRight: 20
+        width: 280,
+        height: 443
     },
     indicatorContainer: {
         width: '100%',
         height: '45%',
+        overflow: 'hidden'
+    },
+    indicatorWrapper: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        position: 'relative'
+        width: '100%',
+        marginTop: 10
     },
     normalDot: {
         height: 8,
@@ -51,10 +54,13 @@ const data = [
 
 const CardCarousel = () => {
     const navigation = useNavigation();
+    const flatListRef = useRef(null);
     const { width: windowWidth } = useWindowDimensions();
     const [activeIndex, setActiveIndex] = useState(0);
 
     const navigateToSalaryCardScreen = () => navigation.navigate('SalaryCard');
+
+    const navigateToRespectiveCard = (index) => flatListRef.current.scrollToIndex({ index, animated: true });
 
     const onScroll = Animated.event(
         [],
@@ -70,6 +76,7 @@ const CardCarousel = () => {
     return (
         <View style={styles.mainContainer}>
             <Animated.FlatList
+                ref={flatListRef}
                 data={data}
                 bounces={false}
                 horizontal
@@ -78,16 +85,13 @@ const CardCarousel = () => {
                 showsHorizontalScrollIndicator={false}
                 onScroll={onScroll}
                 keyExtractor={card => card.id}
-                renderItem={({ item }) => {
+                renderItem={({ item, index }) => {
                     return (
                         <Pressable onPress={() => navigateToSalaryCardScreen()}>
-                            <View
-                                style={styles.item}
-                            >
+                            <View style={[ styles.item, index + 1 === data.length ? { marginRight: 50 } : { marginLeft: 20 } ]}>
                                 <Image
                                     source={item.source}
                                     style={styles.card}
-                                    sharedTransitionTag='tag'
                                 />
                             </View>
                         </Pressable>
@@ -95,23 +99,23 @@ const CardCarousel = () => {
                 }}
             />
             <View style={styles.indicatorContainer}>
-                {data.map((_, cardIndex) => {
-                    return (
-                        <View
-                            key={cardIndex}
-                            style={[
-                                styles.normalDot,
-                                {
-                                    position: 'absolute',
-                                    top: 0,
-                                    width: activeIndex === cardIndex ? 30 : 20,
-                                    backgroundColor: activeIndex === cardIndex ? '#FFF' : '#000',
-                                    marginRight: cardIndex + 1 !== data.length ? 60 : 0
-                                }
-                            ]}
-                        />
-                    );
-                })}
+                <View style={styles.indicatorWrapper}>
+                    {data.map((_, cardIndex) => {
+                        return (
+                            <Pressable key={cardIndex} onPress={() => navigateToRespectiveCard(cardIndex)}>
+                                <View
+                                    style={[
+                                        styles.normalDot,
+                                        {
+                                            width: activeIndex === cardIndex ? 30 : 20,
+                                            backgroundColor: activeIndex === cardIndex ? '#FFF' : '#000',
+                                        }
+                                    ]}
+                                />
+                            </Pressable>
+                        );
+                    })}
+                </View>
             </View>
         </View>
     );

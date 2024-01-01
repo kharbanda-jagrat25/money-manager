@@ -6,27 +6,21 @@ import GradientContainer from './components/GradientContainer';
 
 const styles = StyleSheet.create({
   container: {
-    marginLeft: '4.3%'
+    marginLeft: 20
   },
   balanceHeading: {
     fontSize: 16,
     fontWeight: 700,
     color: '#94A3D3',
-    marginTop: '5%'
+    marginTop: 20
   },
   balanceAmount: {
     fontSize: 26,
     fontWeight: 700,
     color: '#FFFFFF'
   },
-  card: {
-    marginTop: '10%',
-    width: '55%',
-    height: '45%'
-  },
   carouselContainer: {
-    marginLeft: "4.3%",
-    marginTop: "10%",
+    marginTop: 40,
     height: '100%'
   },
   fakeContainer: {
@@ -38,7 +32,7 @@ const Home = () => {
   return (
     <GradientContainer>
       <View style={styles.container}>
-        <Header showLogo heading={<View><Text>Bank</Text><Text>Cards</Text></View>} />
+        <Header showLogo heading={"Bank Cards"} />
         <Text style={styles.balanceHeading}>Balance</Text>
         <Text style={styles.balanceAmount}>$2,748.00</Text>
       </View>

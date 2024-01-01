@@ -1,13 +1,11 @@
 import React from 'react';
 import { View, StyleSheet, Text, Image } from 'react-native';
 
-import Logo from '../../assets/icons/logo.svg';
-
-import GradientContainer from './GradientContainer';
+import Logo from '../../assets/icons/logo.png';
 
 const styles = StyleSheet.create({
     mainContainer: {
-        marginTop: '10.8%',
+        marginTop: 70,
     },
     headingContainer: {
         display: 'flex',
@@ -23,39 +21,25 @@ const styles = StyleSheet.create({
         color: '#FFFFFF'
     },
     logo: {
-        width: '36px',
-        height: '36px'
+        width: 36,
+        height: 36
     },
 });
 
 const Header = ({ heading, showLogo, style }) => {
     return (
-        <GradientContainer>
-            <View style={{ ...styles.mainContainer, ...style }}>
-                <View style={styles.headingContainer}>
-                    <Text style={styles.heading}>{heading}</Text>
-                    {showLogo ? (
-                        <Image
-                            source={Logo}
-                            style={styles.logo}
-                        />
-                    ) : null}
-                </View>
-                {/* <Text style={styles.balanceHeading}>Balance</Text> */}
-                {/* <Text style={styles.balanceAmount}>$2,748.00</Text> */}
-                {/* 34px from upper container */}
-                {/* <View style={{height: "90%"}}> */}
-                {/* <CardCarousel /> */}
-
-                {/* </View> */}
-                {/* <Image
-      source={Card1Img}
-      resizeMode='cover'
-      style={styles.card}
-    /> */}
+        <View style={{ ...styles.mainContainer, ...style }}>
+            <View style={styles.headingContainer}>
+                <Text style={styles.heading}>{heading}</Text>
+                {showLogo ? (
+                    <Image
+                        source={Logo}
+                        style={styles.logo}
+                        resizeMode='cover'
+                    />
+                ) : null}
             </View>
-        </GradientContainer>
-
+        </View>
     );
 };
 

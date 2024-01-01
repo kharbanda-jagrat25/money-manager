@@ -9,10 +9,10 @@ import Home from './screens/Home';
 import Catalogue from './screens/Catalogue';
 import History from './screens/History';
 
-import HomeIcon from "./assets/icons/home.svg";
-import MenuIcon from "./assets/icons/menu.svg";
-import CatalogIcon from "./assets/icons/catalog.svg";
-import HistoryIcon from "./assets/icons/history.svg";
+import HomeIcon from "./assets/icons/home.png";
+import MenuIcon from "./assets/icons/menu.png";
+import CatalogIcon from "./assets/icons/catalog.png";
+import HistoryIcon from "./assets/icons/history.png";
 import SalaryCard from './screens/components/SalaryCard';
 
 const Stack = createNativeStackNavigator();
@@ -21,55 +21,49 @@ const Tab = createBottomTabNavigator();
 const styles = StyleSheet.create({
     individualTabWrapper: {
         backgroundImage: "none",
-        height: "58px",
-        width: "58px",
+        height: 58,
+        width: 58,
         display: "flex",
         alignItems: "center",
-        justifyContent: "center"
-    },
-    activeIndividualTabWrapper: {
+        justifyContent: "center",
         borderRadius: 50,
         boxShadow: "0px 4px 4px 0px #00000040",
     },
-    activeTabIcon: {
-        filter: "brightness(0) invert(1)",
-        width: "35%",
-        height: "35%",
-    },
     unclickableContainer: {
-        marginTop: 11,
-        pointerEvents: 'none'
+        pointerEvents: 'none',
+        marginTop: 12
     },
     tabIcon: {
-        width: 20,
-        height: 20,
-    },
-    unclickableTabIcon: {
         width: 55,
         height: 55,
     }
 });
 
 const TabIcon = ({ focused, icon }) => (
-    focused ? (
-        <LinearGradient
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 0 }}
-            colors={["rgba(93, 158, 255, 1)", "rgba(119, 81, 253, 1)"]}
-            style={{
-                ...styles.individualTabWrapper,
-                ...styles.activeIndividualTabWrapper,
-            }}
-        >
-            <Image style={styles.activeTabIcon} source={icon} />
-        </LinearGradient>) : 
-        <Image source={icon}  style={styles.tabIcon}  />
+    <View style={{ marginTop: 30}}>
+        {focused ? (
+            <LinearGradient
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 0 }}
+                colors={["rgba(93, 158, 255, 1)", "rgba(119, 81, 253, 1)"]}
+                style={
+                    styles.individualTabWrapper
+                }
+            >
+                <Image style={{
+                    ...styles.tabIcon,
+                    tintColor: 'rgba(255, 255, 255, 1)',
+
+                }} source={icon} />
+            </LinearGradient>) :
+            <Image source={icon} style={styles.tabIcon} />}
+    </View>
 );
 
 const UnclickableTabButton = ({ tab }) => (
     <Pressable onPress={() => { }} style={{ opacity: 0.4 }}>
         <View style={styles.unclickableContainer}>
-            <Image source={tab.icon} style={styles.unclickableTabIcon} />
+            <Image source={tab.icon} style={styles.tabIcon} />
         </View>
     </Pressable>
 );
@@ -79,17 +73,17 @@ function HomeTabs() {
         {
             name: "Home",
             icon: HomeIcon,
-            component: Home,
+            component: <Home />,
         },
         {
             name: "Catalogue",
             icon: CatalogIcon,
-            component: Catalogue
+            component: <Catalogue />
         },
         {
             name: "History",
             icon: HistoryIcon,
-            component: History
+            component: <History />
         },
         {
             name: "Menu",
@@ -105,13 +99,13 @@ function HomeTabs() {
                     <LinearGradient
                         start={{ x: 0, y: 0 }}
                         end={{ x: 1, y: 0 }}
-                        style={{ height: "100%", borderTopLeftRadius: "40px", borderTopEndRadius: "40px", boxShadow: "0px 4px 4px 0px #00000040", }}
+                        style={{ height: 100,  borderTopLeftRadius: "40px", borderTopEndRadius: "40px", boxShadow: "0px 4px 4px 0px #00000040" }}
                         colors={["rgba(19, 27, 49, 0.92)", " rgba(47, 57, 91, 0.92)"]}
                     />
                 ),
                 tabBarShowLabel: false,
                 tabBarStyle: {
-                    height: "80px",
+                    height: 80,
                     border: "none",
                     position: 'absolute',
                     bottom: 0,
@@ -124,7 +118,7 @@ function HomeTabs() {
                     <Tab.Screen
                         key={tab.name}
                         name={tab.name}
-                        component={tab.component}
+                        children={() => tab.component}
                         options={{ tabBarIcon: ({ focused }) => <TabIcon focused={focused} icon={tab.icon} /> }}
                     />
                 );
@@ -132,7 +126,7 @@ function HomeTabs() {
                     <Tab.Screen
                         key={tab.name}
                         name={tab.name}
-                        component={() => { }}
+                        children={() => { }}
                         options={{ tabBarButton: props => <UnclickableTabButton tab={tab} {...props} /> }}
                     />
                 );
